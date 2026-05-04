@@ -40,3 +40,13 @@ exports.verifyIdentity = async (req, res) => {
 
   res.json({ msg: "Verification successful" });
 };
+const apiAdapter = require("../services/apiAdapter");
+
+exports.onboard = async (req, res) => {
+  try {
+    const data = await apiAdapter.onboardFintech(req.body);
+    res.status(201).json(data);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};

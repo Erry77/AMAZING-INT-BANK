@@ -74,3 +74,17 @@ exports.transfer = async (req, res) => {
     session.endSession();
   }
 };
+
+const apiAdapter = require("../services/apiAdapter");
+
+exports.transfer = async (req, res) => {
+  try {
+    await apiAdapter.authenticate(); // get token first
+
+    const result = await apiAdapter.transfer(req.body);
+
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
